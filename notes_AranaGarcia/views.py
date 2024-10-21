@@ -1,15 +1,17 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from .models import Note
 
-# Lista de notas
+# Lista de notas del usuario
 def note_list(request):
-    notes = Note.objects.filter(user=request.user).order_by('-creation_date')
-    context = {'notes': notes}
-    return render(request, 'notes_AranaGarcia/note_list_AranaGarcia.html', context)
-
-# Detalle de una nota
+    lista_notas = Note.objects.filter(user=request.user).order_by('-creation_date')
+    context = {
+        "lista_notas": lista_notas,
+    }
+    return render(request, "notes_AranaGarcia/note_list_AranaGarcia.html", context)
+# Detalle de una nota específica
 def note_detail(request, pk):
     note = get_object_or_404(Note, pk=pk, user=request.user)
     context = {'note': note}
@@ -27,7 +29,7 @@ def note_create(request):
             return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html', {'error_message': 'Todos los campos son obligatorios.'})
     return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html')
 
-# Editar una nota
+# Editar una nota existente
 def note_edit(request, pk):
     note = get_object_or_404(Note, pk=pk, user=request.user)
     if request.method == 'POST':
@@ -46,4 +48,4 @@ def note_delete(request, pk):
     if request.method == 'POST':
         note.delete()
         return HttpResponseRedirect(reverse('notas_AranaGarcia:note-list'))
-    return render(request, 'notes_AranaGarcia/note_confirm_delete_AranaGarcia.html', {'note': note})
+    return render(request, 'notes_AranaGarcia/note_delete_AranaGarcia.html', {'note': note})

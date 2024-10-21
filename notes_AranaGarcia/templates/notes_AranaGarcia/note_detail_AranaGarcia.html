@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<h1>{{ object.title }}</h1>
+<p>{{ object.content }}</p>
+<p>Creado el: {{ object.creation_date }}</p>
+<a href="{% url 'note_edit' object.pk %}">Editar</a>
+<a href="{% url 'note_delete' object.pk %}">Eliminar</a>
+<a href="{% url 'note_list' %}">Volver a la lista</a>
