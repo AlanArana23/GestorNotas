@@ -6,14 +6,15 @@ from .models import Note
 
 # Lista de notas del usuario
 def note_list(request):
-    lista_notas = Note.objects.filter(user=request.user).order_by('-creation_date')
+    lista_notas = Note.objects.order_by('-creation_date')
     context = {
         "lista_notas": lista_notas,
     }
     return render(request, "notes_AranaGarcia/note_list_AranaGarcia.html", context)
-# Detalle de una nota específica
-def note_detail(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
+
+
+def note_detail(request, note_id):
+    note = get_object_or_404(Note, pk=note_id, user=request.user)
     context = {'note': note}
     return render(request, 'notes_AranaGarcia/note_detail_AranaGarcia.html', context)
 
