@@ -1,6 +1,99 @@
-<h2>{{ note.title }}</h2>
-<p>{{ note.content }}</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ note.title }}</title>
 
-<a href="{% url 'notes_AranaGarcia:note_edit' note.pk %}">Editar</a>
-<a href="{% url 'notes_AranaGarcia:note_delete' note.pk %}">Eliminar</a>
-<a href="{% url 'notes_AranaGarcia:note_list' %}">Volver a la lista</a>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.note-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.note-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #74ebd5;
+}
+
+.edit-btn:hover {
+    background-color: #5ccbc1;
+}
+
+.delete-btn {
+    background-color: #ff6b6b;
+}
+
+.delete-btn:hover {
+    background-color: #e35d5d;
+}
+
+.back-btn {
+    background-color: #6c757d;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+</style>
+<body>
+    <div class="note-container">
+        <h2>{{ note.title }}</h2>
+        <p>{{ note.content }}</p>
+
+        <div class="note-actions">
+            <a href="{% url 'notes_AranaGarcia:note_edit' note.pk %}" class="btn edit-btn">Editar</a>
+            <a href="{% url 'notes_AranaGarcia:note_delete' note.pk %}" class="btn delete-btn">Eliminar</a>
+            <a href="{% url 'notes_AranaGarcia:note_list' %}" class="btn back-btn">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>

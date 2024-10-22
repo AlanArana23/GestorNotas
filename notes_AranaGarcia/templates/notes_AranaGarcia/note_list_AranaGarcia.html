@@ -1,12 +1,102 @@
-<h2>Mis Notas</h2>
-<ul>
-    {% for note in notes %}
-        <li>
-            <a href="{% url 'notes_AranaGarcia:note_detail' note.pk %}">
-                {{ note.title }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Notas</title>
 
-<a href="{% url 'notes_AranaGarcia:note_create' %}">Crear nueva nota</a>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .notes-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .notes-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .note-item {
+        margin-bottom: 10px;
+    }
+
+    .note-item a {
+        display: block;
+        background-color: #eaf4f9;
+        padding: 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s ease;
+    }
+
+    .note-item a:hover {
+        background-color: #d6e9f4;
+    }
+
+    .btn {
+        background-color: #74ebd5;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #5ccbc1;
+    }
+
+    .create-btn {
+        margin-top: 20px;
+        display: inline-block;
+    }
+</style>
+<body>
+    <div class="notes-container">
+        <h2>Mis Notas</h2>
+        <ul class="notes-list">
+            {% for note in notes %}
+                <li class="note-item">
+                    <a href="{% url 'notes_AranaGarcia:note_detail' note.pk %}">
+                        {{ note.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'notes_AranaGarcia:note_create' %}" class="btn create-btn">Crear nueva nota</a>
+    </div>
+</body>
+</html>

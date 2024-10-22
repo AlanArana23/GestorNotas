@@ -1,14 +1,130 @@
-<h2>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</title>
 
-<form method="post">
-    {% csrf_token %}
-    <label for="title">Título:</label>
-    <input type="text" name="title" id="title" value="{{ note.title|default:'' }}" required>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    }
 
-    <label for="content">Contenido:</label>
-    <textarea name="content" id="content" required>{{ note.content|default:'' }}</textarea>
+    body {
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
 
-    <button type="submit">{% if note %}Guardar Cambios{% else %}Crear Nota{% endif %}</button>
-</form>
+    .form-container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
 
-<a href="{% url 'notes_AranaGarcia:note_list' %}">Volver a la lista</a>
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .note-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-group {
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+        border-color: #74ebd5;
+        outline: none;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
+
+    .btn {
+        background-color: #74ebd5;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #5ccbc1;
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        color: #555;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+    <div class="form-container">
+        <h2>{% if note %}Editar Nota{% else %}Crear Nota{% endif %}</h2>
+
+        <form method="post" class="note-form">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="title">Título:</label>
+                <input type="text" name="title" id="title" value="{{ note.title|default:'' }}" required>
+            </div>
+
+            <div class="input-group">
+                <label for="content">Contenido:</label>
+                <textarea name="content" id="content" required>{{ note.content|default:'' }}</textarea>
+            </div>
+
+            <button type="submit" class="btn">
+                {% if note %}Guardar Cambios{% else %}Crear Nota{% endif %}
+            </button>
+        </form>
+
+        <a href="{% url 'notes_AranaGarcia:note_list' %}" class="back-link">Volver a la lista</a>
+    </div>
+</body>
+</html>
