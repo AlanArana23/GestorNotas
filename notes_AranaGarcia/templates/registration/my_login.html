@@ -1,15 +1,108 @@
-<h2>Iniciar sesión</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Usuario:</label>
-    <input type="text" name="username" id="username" required>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
 
-    <label for="password">Contraseña:</label>
-    <input type="password" name="password" id="password" required>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    }
 
-    <button type="submit">Ingresar</button>
-</form>
+    body {
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-{% if form.errors %}
-    <p>Hubo un error en los datos proporcionados. Por favor, intenta de nuevo.</p>
-{% endif %}
+    .login-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .input-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+        border-color: #74ebd5;
+        outline: none;
+    }
+
+    .btn {
+        background-color: #74ebd5;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #5ccbc1;
+    }
+
+    .error-message {
+        margin-top: 15px;
+        color: red;
+        font-size: 14px;
+    }
+</style>
+<body>
+    <div class="login-container">
+        <h2>Iniciar sesión</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="username">Usuario:</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn">Ingresar</button>
+        </form>
+
+        {% if form.errors %}
+            <p class="error-message">Hubo un error en los datos proporcionados. Por favor, intenta de nuevo.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
