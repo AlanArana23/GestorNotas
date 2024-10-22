@@ -1,44 +1,51 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.http import HttpResponseRedirect
 from .models import Note
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from .models import Note
-from django.urls import reverse
 # Lista de notas
+@login_required
 def note_list(request):
-    notes = Note.objects.all()
+    # Mostrar las notas del usuario autenticado
+    notes = Note.objects.filter(user=request.user)
     return render(request, 'notes_AranaGarcia/note_list_AranaGarcia.html', {'notes': notes})
 
 # Detalle de nota
-# notes_AranaGarcia/views.py
+@login_required
 def note_detail(request, pk):
     note = get_object_or_404(Note, pk=pk)
     return render(request, 'notes_AranaGarcia/note_detail_AranaGarcia.html', {'note': note})
 
+# Crear nota
+@login_required
 def note_create(request):
-    if request.method == "POST":
-        title = request.POST['title']
-        content = request.POST['content']
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
         Note.objects.create(user=request.user, title=title, content=content)
-        return redirect('note_list_AranaGarcia')
+        # Redirigir usando el app_name
+        return redirect('notes_AranaGarcia:note_list')
     return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html')
 
-# Editar nota existente
+# Editar nota
+@login_required
 def note_edit(request, pk):
-    note = get_object_or_404(Note, pk=pk)
-    if request.method == "POST":
-        note.title = request.POST['title']
-        note.content = request.POST['content']
-        note.save()
-        return redirect('note_detail', pk=pk)
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        if title and content:
+            note.title = title
+            note.content = content
+            note.save()
+            # Redirigir usando el app_name
+            return redirect('notes_AranaGarcia:note_detail', pk=note.pk)
     return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html', {'note': note})
 
 # Eliminar nota
+@login_required
 def note_delete(request, pk):
-    note = get_object_or_404(Note, pk=pk)
+    note = get_object_or_404(Note, pk=pk, user=request.user)
     note.delete()
-    return redirect('note_list')
+    # Redirigir usando el app_name
+    return redirect('notes_AranaGarcia:note_list')

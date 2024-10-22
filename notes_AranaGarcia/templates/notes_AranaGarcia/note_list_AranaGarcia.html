@@ -1,28 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Notas</title>
-</head>
-<body>
-    <h1>Lista de Notas</h1>
+<h2>Mis Notas</h2>
+<ul>
+    {% for note in notes %}
+        <li>
+            <a href="{% url 'notes_AranaGarcia:note_detail' note.pk %}">
+                {{ note.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
 
-    <!-- Mostrar mensaje si no hay notas -->
-    {% if notes %}
-        <ul>
-            <!-- Iteramos sobre las notas y mostramos un enlace al detalle de cada una -->
-            {% for note in notes %}
-                <li>
-                    <a href="{% url 'notes_AranaGarcia:note_detail' note.pk %}">{{ note.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay notas disponibles.</p>
-    {% endif %}
-
-    <!-- Enlace para crear una nueva nota -->
-    <a href="{% url 'notes_AranaGarcia:note_create' %}">Crear nueva nota</a>
-</body>
-</html>
+<a href="{% url 'notes_AranaGarcia:note_create' %}">Crear nueva nota</a>
