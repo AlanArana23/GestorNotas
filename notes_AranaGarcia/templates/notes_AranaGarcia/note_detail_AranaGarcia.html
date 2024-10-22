@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Nota</title>
-</head>
-<body>
-    <h1>{{ note.title }}</h1>
-    <p>{{ note.content }}</p>
-    <p><strong>Creada el:</strong> {{ note.creation_date|date:"d M Y H:i" }}</p>
+<h1>{{ note.title }}</h1>
+<p>{{ note.content }}</p>
 
-    <a href="{% url 'notes_AranaGarcia:note-edit' note.pk %}">Editar Nota</a>
-    <form action="{% url 'notes_AranaGarcia:note-delete' note.pk %}" method="POST" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit">Eliminar Nota</button>
-    </form>
-
-    <a href="{% url 'notes_AranaGarcia:note-list' %}">Volver a la lista</a>
-</body>
-</html>
+<!-- Ajustar las URLs con el prefijo del nombre de la aplicación -->
+<a href="{% url 'notes_AranaGarcia:note_edit' note.pk %}">Editar</a> |
+<a href="{% url 'notes_AranaGarcia:note_delete' note.pk %}">Eliminar</a> |
+<a href="{% url 'notes_AranaGarcia:note_list' %}">Volver a la lista</a>

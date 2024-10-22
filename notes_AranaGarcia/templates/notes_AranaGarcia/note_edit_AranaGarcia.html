@@ -1,14 +1,11 @@
+<h1>{% if note %}Editar Nota{% else %}Crear Nueva Nota{% endif %}</h1>
 <form method="POST">
     {% csrf_token %}
     <label for="title">Título:</label>
-    <input type="text" name="title" id="title" value="{{ note.title|default_if_none:'' }}">
-
+    <input type="text" name="title" value="{% if note %}{{ note.title }}{% endif %}"><br>
     <label for="content">Contenido:</label>
-    <textarea name="content" id="content">{{ note.content|default_if_none:'' }}"></textarea>
-
-    {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-    {% endif %}
-
+    <textarea name="content">{% if note %}{{ note.content }}{% endif %}</textarea><br>
     <button type="submit">Guardar</button>
 </form>
+<!-- Ajustamos la URL con el prefijo del nombre de la aplicación -->
+<a href="{% url 'notes_AranaGarcia:note_list' %}">Volver a la lista</a>
