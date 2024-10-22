@@ -30,8 +30,7 @@ def note_create(request):
             return HttpResponseRedirect(reverse('notes_AranaGarcia:note-list'))
         else:
             # Mensaje de error si faltan campos
-            return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html',
-                          {'error_message': 'Todos los campos son obligatorios.'})
+            return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html')
     return render(request, 'notes_AranaGarcia/note_edit_AranaGarcia.html')
 
 
